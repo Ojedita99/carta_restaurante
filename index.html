@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500;600&display=swap');
+    
+    :root {
+      --primary: #8a1d23;
+      --primary-dark: #6a1218;
+      --secondary: #f8f3e7;
+      --text-dark: #333;
+      --text-light: #f8f3e7;
+      --accent: #dbc396;
+      --spacing: 20px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--secondary);
+      line-height: 1.6;
+    }
+    
+    .menu-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px;
+      background: url('/api/placeholder/1000/1500') center/cover fixed;
+      background-color: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .menu-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255,255,255,0.92);
+      z-index: 0;
+    }
+    
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      text-align: center;
+      padding: 10px 0 40px;
+    }
+    
+    .logo h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 72px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 2px;
+      margin: 0;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .logo h1::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 2px;
+      background-color: var(--accent);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .logo p {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--primary-dark);
+      margin-top: 15px;
+    }
+    
+    .menu-section {
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .section-title {
+      background-color: var(--primary);
+      color: var(--text-light);
+      padding: 12px 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--accent);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 1px;
+      background-color: var(--accent);
+    }
+    
+    .menu-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+    
+    .menu-item {
+      width: 48%;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .menu-item::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+    
+    .menu-item-content {
+      flex-grow: 1;
+      padding-right: 8px;
+    }
+    
+    .item-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--text-dark);
+    }
+    
+    .item-description {
+      font-size: 14px;
+      color: #666;
+      font-weight: 300;
+      font-style: italic;
+    }
+    
+    .item-price {
+      font-weight: 600;
+      white-space: nowrap;
+      color: var(--primary);
+      font-size: 16px;
+      padding-left: 10px;
+    }
+    
+    .menu-categories {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0 25px;
+    }
+    
+    .category-button {
+      background-color: var(--primary);
+      color: var(--text-light);
+      border: none;
+      padding: 12px 35px;
+      margin: 0 10px;
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .category-button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--accent);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .category-button:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .category-button:hover::after {
+      transform: scaleX(1);
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      font-size: 15px;
+      color: #777;
+      margin: -10px 0 20px;
+      font-style: italic;
+    }
+    
+    .footer-note {
+      font-size: 12px;
+      padding: 20px;
+      color: #666;
+      background-color: #f5f5f5;
+      border-left: 3px solid var(--accent);
+      margin-top: 30px;
+    }
+    
+    .section-divider {
+      width: 70%;
+      margin: 0 auto 30px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--primary), transparent);
+      opacity: 0.2;
+    }
+    
+    .special-item {
+      width: 100%;
+      background-color: rgba(219, 195, 150, 0.1);
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 3px solid var(--accent);
+    }
+    
+    .special-item .item-name {
+      color: var(--primary);
+      font-size: 18px;
+    }
+    
+    @media (max-width: 768px) {
+      .menu-item {
+        width: 100%;
+      }
+      
+      .logo h1 {
+        font-size: 52px;
+      }
+      
+      .category-button {
+        padding: 10px 20px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-container">
+    <div class="content-wrapper">
+      <!-- Logo -->
+      <div class="logo">
+        <h1>Juicio</h1>
+        <p>Gastronomía con sentido</p>
+      </div>
+      
+      <!-- APERTURA DEL CASO -->
+      <div class="menu-section">
+        <div class="section-title">APERTURA DEL CASO | Entrantes</div>
+        <div class="section-subtitle">El comienzo de nuestra experiencia culinaria</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Tabla de surtido ibérico</div>
+              <div class="item-description">Selección de embutidos ibéricos de bellota</div>
+            </div>
+            <div class="item-price">18 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Jamón ibérico</div>
+              <div class="item-description">Cortado a mano, pata negra de bellota</div>
+            </div>
+            <div class="item-price">Media 8 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Queso viejo de oveja</div>
+              <div class="item-description">Curado artesanalmente</div>
+            </div>
+            <div class="item-price">Media 5 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Anchoas en su tostada con aceite de oliva</div>
+              <div class="item-description">Del Cantábrico con pan cristal</div>
+            </div>
+            <div class="item-price">Tapa 2,80 € / ud (min. 2)</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Ensaladilla tradicional casera</div>
+              <div class="item-description">Como la de antaño, receta de la abuela</div>
+            </div>
+            <div class="item-price">Tapa 4,50 € | Ración 9 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Tomate aliñado con melva y pimiento de piquillo</div>
+              <div class="item-description">Tomate de temporada con aceite de oliva virgen</div>
+            </div>
+            <div class="item-price">9 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Salmorejo casero</div>
+              <div class="item-description">Con guarnición de jamón y huevo duro</div>
+            </div>
+            <div class="item-price">4,25 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Croqueta de puchero ibérica</div>
+              <div class="item-description">Cremosas por dentro, crujientes por fuera</div>
+            </div>
+            <div class="item-price">1,90 € / ud</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- EXPOSICIÓN DEL CASO -->
+      <div class="menu-section">
+        <div class="section-title">EXPOSICIÓN DEL CASO | Nuestra propuesta</div>
+        <div class="section-subtitle">Platos con personalidad y carácter</div>
+        <div class="menu-items">
+          <div class="special-item">
+            <div class="menu-item-content">
+              <div class="item-name">✦ Pan de cristal con jamón y salmorejo ✦</div>
+              <div class="item-description">La estrella de la casa, nuestra recomendación especial del chef</div>
+            </div>
+            <div class="item-price">18 €</div>
+          </div>
+          
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Croquetas de piquillo</div>
+              <div class="item-description">Elaboradas con pimientos asados a la leña</div>
+            </div>
+            <div class="item-price">Tapa 4,80 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Ensalada de queso de cabra con frutos secos</div>
+              <div class="item-description">Con vinagreta de miel y mostaza</div>
+            </div>
+            <div class="item-price">10,50 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Croquetas de cola de toro</div>
+              <div class="item-description">Receta tradicional andaluza</div>
+            </div>
+            <div class="item-price">Tapa 4,80 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Huevos rotos con jamón y patatas</div>
+              <div class="item-description">Huevos camperos sobre patatas fritas</div>
+            </div>
+            <div class="item-price">13 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Revuelto de bacalao dorado con patatas paja</div>
+              <div class="item-description">Con cebolla caramelizada y pimiento</div>
+            </div>
+            <div class="item-price">14 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Surtido de croquetas caseras</div>
+              <div class="item-description">Variedad de nuestras croquetas más demandadas</div>
+            </div>
+            <div class="item-price">15 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Taquitos de rosada frita</div>
+              <div class="item-description">Con alioli suave casero</div>
+            </div>
+            <div class="item-price">Tapa 4,75 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Parrillada de verduras</div>
+              <div class="item-description">De temporada con aceite de romero</div>
+            </div>
+            <div class="item-price">12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Pincho de bacalao</div>
+              <div class="item-description">Bacalao confitado sobre compota de tomate</div>
+            </div>
+            <div class="item-price">Tapa 9 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Adobo sevillano</div>
+              <div class="item-description">Tradicional receta marinera</div>
+            </div>
+            <div class="item-price">Tapa 4,90 € | Ración 12 €</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- PRUEBAS DEL CASO -->
+      <div class="menu-section">
+        <div class="section-title">PRUEBAS DEL CASO | Montaditos</div>
+        <div class="section-subtitle">Pequeños bocados con grandes sabores</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Montadito mantequilla</div>
+              <div class="item-description">Con jamón ibérico de bellota</div>
+            </div>
+            <div class="item-price">3,80 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Montadito pringá</div>
+              <div class="item-description">Con carne de cocido casero</div>
+            </div>
+            <div class="item-price">3,80 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Montadito gambitas</div>
+              <div class="item-description">Con alioli suave y rúcula</div>
+            </div>
+            <div class="item-price">3,80 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Serranito pollo/lomo</div>
+              <div class="item-description">Clásico andaluz con pimiento y jamón</div>
+            </div>
+            <div class="item-price">7 €</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- DELIBERACIÓN -->
+      <div class="menu-section">
+        <div class="section-title">DELIBERACIÓN</div>
+        <div class="menu-categories">
+          <button class="category-button">Carnes</button>
+          <button class="category-button">Pescados</button>
+        </div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Solomillo en salsa</div>
+              <div class="item-description">Pimienta, Pedro Ximenez o Cabrales</div>
+            </div>
+            <div class="item-price">16 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Cazón de Huelva</div>
+              <div class="item-description">En adobo tradicional marinero</div>
+            </div>
+            <div class="item-price">Tapa 5 € | Ración 12 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Presa ibérica (plancha) y alioli</div>
+              <div class="item-description">Con patatas al horno con romero</div>
+            </div>
+            <div class="item-price">Tapa 4,80 € | Ración 15 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Surtimesa de pescaito frito</div>
+              <div class="item-description">Variedad de pescados en fritura andaluza</div>
+            </div>
+            <div class="item-price">16 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Presa ibérica con jamón ibérico</div>
+              <div class="item-description">Sobre cama de patatas a lo pobre</div>
+            </div>
+            <div class="item-price">15 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Pata de pulpo a la plancha</div>
+              <div class="item-description">Con aceite de pimentón y sal gruesa</div>
+            </div>
+            <div class="item-price">17 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Carrillada ibérica en salsa</div>
+              <div class="item-description">Melosa y tierna, cocinada a baja temperatura</div>
+            </div>
+            <div class="item-price">Tapa 4,80 € | Ración 14 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Ventresca de atún a la plancha con verduras</div>
+              <div class="item-description">Marinada en soja y cítricos</div>
+            </div>
+            <div class="item-price">Tapa 6 € | Ración 16 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Mini de Ternera</div>
+              <div class="item-description">Con queso de cabra, bacon y cebolla caramelizada</div>
+            </div>
+            <div class="item-price">15 €</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="section-divider"></div>
+      
+      <!-- PARA LOS MÁS INOCENTES -->
+      <div class="menu-section">
+        <div class="section-title">PARA LOS MÁS INOCENTES</div>
+        <div class="section-subtitle">Menú infantil</div>
+        <div class="menu-items">
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Hamburguesa con queso y patatas</div>
+              <div class="item-description">Carne 100% vacuno con queso fundido</div>
+            </div>
+            <div class="item-price">6 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Huevos fritos con patatas</div>
+              <div class="item-description">Huevos camperos con patatas caseras</div>
+            </div>
+            <div class="item-price">6 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Pollo con patatas fritas</div>
+              <div class="item-description">Pechuga de pollo a la plancha</div>
+            </div>
+            <div class="item-price">6 €</div>
+          </div>
+          <div class="menu-item">
+            <div class="menu-item-content">
+              <div class="item-name">Nuggets de pollo con patatas fritas</div>
+              <div class="item-description">Crujientes por fuera, jugosos por dentro</div>
+            </div>
+            <div class="item-price">6 €</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-note">
+        * Servicio de 0,50€ por persona. Todos los precios incluyen IVA.<br>
+        ** Si tiene alguna alergia o intolerancia por favor avísenos para poder tomar las medidas necesarias y prioritarias de seguridad.
+      </div>
+    </div>
+  </div>
+</body>
+</html>
